@@ -1,0 +1,301 @@
+.background_cl{
+	background-color: white;
+	font-family: -apple-system, BlinkMacSystemFont,
+    “Segoe UI”, “Roboto”, “Oxygen”, “Ubuntu”, “Cantarell”,
+    “Fira Sans”, “Droid Sans”, “Helvetica Neue”,
+    sans-serif;
+    font-weight: bold;
+}
+
+.cangiua{
+	text-align: center;
+}
+
+.btn_choose_lines{
+    position:relative;
+    top: 0px;
+    width:220px;
+    height:50px;
+    border: 1px solid darkblue;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:18px;
+}
+
+.button_chose_video{
+	padding: 0;
+	font-size: 25px;
+	border:0;
+	color: white;
+	background-color: rgb(10,94,210);
+}
+.an_obj{
+    padding: 0;
+    border: 0;
+	display: none;
+}
+.name_video_upload{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:-25vh;
+    left: -29vw;
+    padding: 0;
+    border: 0;
+    width: 400%;
+    color: rgb(10,94,210);
+    font-size: 2vh;
+    z-index:90000;
+}
+
+.name_video_upload1{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top:50px;
+    left: 10vw;
+    padding: 0;
+    border: 0;
+    width: 80%;
+    color: rgb(10,94,210);
+    font-size: 2vh;
+    z-index:9000;
+}
+
+.btn_predict{
+    position:relative;
+    top:80px;
+    left:300px;
+    width:200px;
+    height: 70px;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.6vh;
+    margin-left:0px;
+}
+
+.btn_predict_hour{
+    position:relative;
+    top:185px;
+    left:300px;
+    width:200px;
+    height: 70px;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.6vh;
+    margin-left:0px;
+}
+
+.btn_showimage{
+    position:relative;
+    top: 10px;
+    width:250px;
+    height:70px;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.6vh;
+
+}
+.btn_clear_line{
+    position:relative;
+    top: 150px;
+    width:250px;
+    height:70px;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.6vh;
+}
+
+.btn_clear_line_hour{
+    position:relative;
+    top: 100px;
+    width:250px;
+    height:70px;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.6vh;
+}
+
+.image_show{
+    position: realative;
+    margin:0px;
+    border:1px solid black;
+    top: 0px
+}
+
+.theback{
+    position:absolute;
+    top: 50vh;
+    left: 65vw;
+    width: 25vh;
+    height: 3vh;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 15px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.5vh;
+    padding: 14px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.lightbox{
+    display:none;
+}
+
+.lightbox div{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0,0,0,0.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    cursor: pointer;
+}
+
+.chose_model_pr{
+    font-size:43px;
+    color: black;
+    style: bold;
+    padding:10px;
+}
+
+.chose_model_pr #model_ip{
+    background-color: rgb(230,230,230);
+    text-align:center;
+    border-radius:5px;
+    width:300px;
+    height:50px;
+    font-size:45px;
+    color:black;
+}
+
+.backgrounddown{
+	background-color: white;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+}
+
+.btn_down{
+    width: 25vh;
+    height: 10vh;
+    border: 1px solid rgb(10,94,210);
+    border-radius: 15px;
+    color: white;
+    background-color: rgb(10,94,210);
+    font-size:2.5vh;
+    margin-left:0px;
+}
+
+.btn_down_video{
+	position:absolute;
+    top: 60vh;
+    left: 55vw;
+}
+
+.btn_down_csv{
+	position:relative;
+    left: 75vw;
+}
+
+.name_video_draw{
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    top:50px;
+    left: 10vw;
+    padding: 0;
+    border: 0;
+    width: 80%;
+    color: rgb(10,94,210);
+    font-size: 2vh;
+    z-index:9000;
+}
+
+.time_sub{
+    font-size:15;
+    position:relative;
+    top:120px;
+    left:10vw;
+}
+
+body{
+	background-color: rgb(125, 125, 125);
+}
+.btn_clear_line{
+    position:relative;
+    top: 150px;
+    width:250px;
+    height:70px;
+    border: 1px solid green;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:2.6vh;
+}
+
+.btn_predict{
+    position:relative;
+    top:80px;
+    left:300px;
+    width:200px;
+    height: 70px;
+    border: 1px solid green;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:2.6vh;
+    margin-left:0px;
+}
+.an_obj{
+    padding: 0;
+    border: 0;
+	display: none;
+}
+.name_video_draw_{
+    background-color: rgb(125, 125, 125);
+    text-align: left;
+    justify-content: left;
+    position: absolute;
+    top:220px;
+    left: 2vw;
+    padding: 0;
+    border: 0;
+    width: 80%;
+    color: white;
+    font-size: 4vh;
+    z-index:9000;
+}
+.table_re{
+	color: white;
+	width: 70vw;
+	font-size: 1.5vw;
+}
+tr{
+	color: white;
+	color: black;
+	font-size: 1.5vw;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+	background-color: rgb(125, 125, 125);
+}

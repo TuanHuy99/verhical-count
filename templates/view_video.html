@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
+<style>
+    background-color: rgb(24,25,26);
+</style>
+<body class="backgrounddown">
+    <div class="cangiua background_cl">
+        <ul style="display: flex; text-align: center;padding-top: 150px;">
+            <li style="width: 40vw;">
+                <img src="https://www.swarco.com/sites/default/files/public/2021-05/OVD%20GRaphic%20small.png" style="width: 40vw; height: 75vh;" alt="Image down">
+            </li>
+            <li style="width: 60vw;">
+                <p style="font-size: 3vw; color: rgb(86,86,86);">Thank you for your trust and use the services</p>
+                <br><br><a href="{{ url_for('form_post') }}" class="button_upload_next theback" role="button" style="">Upload Next Video</a><br><br><br><br><br><br>
+
+                <form action="/downloadvideo" method="get" class="btn_down_video">
+                    <br><p style="color:rgb(86,86,86);">Download Video detect: </p>
+                    <input id = "name_vi" class="name_video_upload background_cl" style="width: 0px" name="name_vi" value = {{ file_path }} readonly>
+                    <input type="submit" class="btn_down" value="Download Video" ><br><br><br>
+                </form>
+                <form action="/downloadcsv" method="get" class="btn_down_csv">
+                    <br><p style="color:rgb(86,86,86)">Download CSV detect: </p>
+                    <input id = "name_vi_csv" class="name_video_upload background_cl" name="name_vi_csv" value = {{ file_path }} readonly>
+                    <input type="submit" class="btn_down" value="Download file .CSV" ><br><br><br>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+</body>

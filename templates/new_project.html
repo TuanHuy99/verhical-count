@@ -1,0 +1,97 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', path='/css/index.css') }}">
+<body class="background_cl cangiua" style="width: 100%; height:100%">
+<div>
+
+</div>
+<div class="background_cl">
+    <form action="/new_upload" enctype="multipart/form-data" method="post" autocomplete="off" class="cangiua" id="form_video">
+            <h1 style="color: White; text-decoration: none;">1. Enter your email</h1>
+            <h1 style="color: White; text-decoration: none;">2. Click Upload Video button</h1>
+            <h1 style="color: White; text-decoration: none;">3. Wait and check your email</h1>
+        <div class="" style="padding: 10px">
+            <div class="">
+                <p style="height: 20px"></p>
+                <label>Nhap Email: </label>
+                <input id="email" class="" name="email" value="your Email">
+
+                <input type="button" class="button_chose_video " onclick="click__uploading()"><label for="file" class="btn_predict" style="padding: 20px;">Upload Video</label></input>
+                <input class="" type="file" id="file" name="file" style="width: 0; height: 0">
+            </div>
+        </div>
+<!--        <label for="email">Enter your email:</label>-->
+<!--        <input type="email" id="email" name="email" class="background_cl">-->
+        <br>
+        <br>
+        <div class="" style="display: none;padding: 15px; height:0; width:0;">
+            <div class="">
+                <button class="" id="addVideosBtn"><i class="" style="font-size:0em; height:100; width:150;"></i> Upload Video</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--<button class="btn btn-primary" onclick="upvideo()">Show video</button>-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+</body>
+
+</br>
+<form action="/submit" method="get" id="form_predict">
+    <input id = "name_vi" class="name_video_upload1 background_cl" name="name_vi" readonly value = {{ file_path }}></input>
+    <br>
+    <br>
+    <br>
+
+
+</form>
+
+<div class="lightbox">
+    <div></div>
+    <img id="loadinggif" style="position: fixed; left: 49%; top: 45vh; z-index: 120; width:2.5%" src="{{ url_for('static', path='/loading_gif/loading_nob.gif') }}" alt="Loading"/>
+</div>
+
+<div style="display: none">
+    <br><br><a href="{{ url_for('form_post') }}" class="button_upload_next theback" role="button" style="">Upload Next Video</a><br><br><br><br><br><br>
+
+    <form action="/downloadvideo" method="get" class="btn_down_video">
+        <br><p style="color:white">Download Video detect: </p>
+        <input id = "name_vi_d" class="name_video_upload background_cl" style="width: 0px" name="name_vi" value = {{ file_path }} readonly>
+        <input type="submit" class="btn_down" value="Download Video" ><br><br><br>
+    </form>
+    <form action="/downloadcsv" method="get" class="btn_down_csv">
+        <br><p style="color:white">Download CSV detect: </p>
+        <input id = "name_vi_csv" class="name_video_upload background_cl" name="name_vi_csv" value = {{ file_path }} readonly>
+        <input type="submit" class="btn_down" value="Download file .CSV" ><br><br><br>
+    </form>
+</div>
+<script>
+    document.getElementById("file").onchange = function() {
+        document.getElementById("form_video").submit();
+        const myTimeout = setTimeout(playVid, 3);
+<!--        document.getElementById("show_img_lines").click();-->
+    };
+
+</script>
+
+<style>
+    header {
+            height: 100px;
+            width: 100%;
+            background-color: #323232;
+        }
+
+    header img {
+        display: block;
+        margin: 0 auto;
+        height: 50%;
+    }
+    .background_cl {
+        background-color: #6C6C6C;
+    }
+
+    .btn {
+        background-color: #323232;
+    }
+</style>

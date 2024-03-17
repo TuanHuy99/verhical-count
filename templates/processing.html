@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Streaming Data</title>
+    <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #progressContainer {
+      width: 50%;
+      height: 60px;
+      background-color: #f0f0f0;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    #progressBar {
+      height: 100%;
+      background-color: #4CAF50;
+      transition: width 1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .button-container {
+
+      display: none;
+      justify-content: center;
+      margin-top: 3vh;
+    }
+
+    .button-container .btn_down {
+      margin: 0 15vh;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+    <h1 style="color:darkgreen">Your video is being processed. Please wait a few minutes.</h1>
+	<h3 style="color:darkgreen">Thank you for waiting. When your video is done processing the download button will light up. download it when the button changes color.</h3>
+	<br><br><br><br>
+	<h2 style="color:darkgreen"> Processing ...</h2>
+    <div id="data-container" style="font-size: 28px"></div>
+    <progress id="process-bar" value="" max="100" style="width: 70vw; height:10vh;"> 32% </progress>
+
+    <div class="button-container" id="btn">
+        {% if task == "2-line" %}
+            <form action="/{{name_user}}/{{dir_video}}/download-video-2-short" method="get" class="btn_down_csv">
+                <input type="submit" class="btn_down" value="Download file video" ><br><br><br>
+            </form>
+        {% endif %}
+        {% if task == "u_turn" %}
+            <form action="/{{name_user}}/{{dir_video}}/download-video-u-turn" method="get" class="btn_down_csv">
+                <input type="submit" class="btn_down" value="Download file video" ><br><br><br>
+            </form>
+        {% endif %}
+        {% if task == "2-line-9classes_short" %}
+            <form action="/{{name_user}}/{{dir_video}}/download-video-2-short-9class" method="get" class="btn_down_csv">
+                <input type="submit" class="btn_down" value="Download file video" ><br><br><br>
+            </form>
+        {% endif %}
+        {% if task == "4-line" %}
+            <form action="/{{name_user}}/{{dir_video}}/download-video-4-short" method="get" class="btn_down_csv">
+                <input type="submit" class="btn_down" value="Download file video" ><br><br><br>
+            </form>
+        {% endif %}
+        {% if task == "4-line-9classes_short" %}
+            <form action="/{{name_user}}/{{dir_video}}/download-video-4-short-9classes" method="get" class="btn_down_csv">
+                <input type="submit" class="btn_down" value="Download file video" ><br><br><br>
+            </form>
+        {% endif %}
+        {% if task == "speed" %}
+            <form action="/{{name_user}}/{{dir_video}}/download-video-speed" method="get" class="btn_down_csv">
+                <input type="submit" class="btn_down" value="Download file video" ><br><br><br>
+            </form>
+        {% endif %}
+        <form action="/user/{{name_user}}" method="get">
+<!--            <input id="name_user" style="display:none" value={{name_user}} >-->
+            <input type="submit" value="BACK TO HOME" class="btn_down">
+        </form>
+    </div>
+
+
+    <script>
+        {% if task == "2-line" %}
+            var eventSource = new EventSource('/{{name_user}}/{{dir_video}}/process-video-2-short');
+        {% endif %}
+        {% if task == "u_turn" %}
+            var eventSource = new EventSource('/{{name_user}}/{{dir_video}}/process-video-u-turn');
+        {% endif %}
+        {% if task == "2-line-9classes_short" %}
+            var eventSource = new EventSource('/{{name_user}}/{{dir_video}}/process-video-2-short-9class');
+        {% endif %}
+        {% if task == "4-line" %}
+            var eventSource = new EventSource('/{{name_user}}/{{dir_video}}/process-video-4-short');
+        {% endif %}
+        {% if task == "4-line-9classes_short" %}
+            var eventSource = new EventSource('/{{name_user}}/{{dir_video}}/processing-video-short-9classes');
+        {% endif %}
+        {% if task == "speed" %}
+            var eventSource = new EventSource('/{{name_user}}/{{dir_video}}/process-video-speed');
+        {% endif %}
+        var dataContainer = document.getElementById('data-container');
+        var processBar = document.getElementById('process-bar');
+        var btn_hide = document.getElementById('btn');
+
+        eventSource.onmessage = function(event) {
+            dataContainer.innerHTML = event.data + "%";
+            processBar.value = event.data
+            if (processBar.value=="100"){
+                btn_hide.style.display = "flex";}
+        };
+
+        eventSource.onerror = function() {
+            eventSource.close();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Styles for the dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown .arrow {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translateY(-50%);
+      border: solid black;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown.open .arrow {
+      transform: translateY(-50%) rotate(-135deg);
+    }
+
+    /* Styles for the form */
+    .upload-form {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .upload-form input[type="file"],
+    .upload-form .dropbox-input {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">Upload VECO Options</h2>
+
+<div class="dropdown" style="text-align: center;">
+  <button class="dropbtn">
+    <span id="optionText" style="padding-right: 20px;">Select an option </span>
+    <span class="arrow"></span>
+  </button>
+  <div class="dropdown-content" id="dropdownContent">
+    <a href="#" onclick="showUploadForm('transfer')">Upload by link dbtransfer</a>
+    <a href="#" onclick="showUploadForm('dropbox')">Upload by Dropbox</a>
+    <a href="#" onclick="showUploadForm('googleDrive')">Upload by Google Drive</a>
+    <a href="#" onclick="showUploadForm('zipForm')">Process by Zipfile</a>
+<!--      <a href="#" onclick="showUploadForm('googleDrive')">Upload by Google Drive</a>-->
+  </div>
+</div>
+
+<div id="googleDriveForm" class="upload-form" style="display: none;">
+  <div>
+  	<form id="upload_googleDrive_long" action="/{{name_user}}/upload_videos" method="post">
+  		<input type="text" name="link_drive" class="dropbox-input" placeholder="Enter Drive ID" required>
+  		<button>Upload</button>
+      <input name="name_user" style="display:none" value={{ name_user }}>
+      <br>
+      <input name="directory_name" type="text" placeholder="Project name" required>
+      <br>
+      <input type="radio" name="class" value="5">
+      <label for="5class">5 classes</label><br>
+      <input type="radio" name="class" value="9">
+      <label for="9class">9 classes</label>
+  	</form>
+  </div>
+</div>
+
+<div id="transferForm" class="upload-form" style="display: none;">
+  <div>
+    <form id="upload_long_video" action="/{{name_user}}/upload_videos" method="post" enctype="multipart/form-data">
+        <input name="name_user" style="display:none" value={{ name_user }}>
+        <input name="directory_name" type="text" placeholder="Project name" style="width: 10vw" required>
+          <input type="text" name="link_tf" placeholder="Nhập đường dẫn link" style="width: 30vw" required>
+        <br>
+      <input type="radio" name="class" value="5">
+      <label for="5class">5 classes</label><br>
+      <input type="radio" name="class" value="9">
+      <label for="9class">9 classes</label>
+        <br>
+      <button>Upload</button>
+    </form>
+  </div>
+</div>
+
+<div id="dropboxForm" class="upload-form" style="display: none;">
+  <div>
+  	<form id="upload_dropbox_long" action="/{{name_user}}/upload_videos" method="post">
+		<input type="text" name="keys_dropbox" class="dropbox-input" placeholder="Enter Keys Dropbox" required>
+  		<input type="text" name="link_dropbox" class="dropbox-input" placeholder="Enter Dropbox link" required>
+  		<button>Upload</button>
+      <input name="name_user" style="display:none" value={{ name_user }}>
+      <br>
+      <input name="directory_name" type="text" placeholder="Project name" required>
+      <br>
+      <input type="radio" id="5class" name="class" value="5">
+      <label for="5class">5 classes</label><br>
+      <input type="radio" id="9class" name="class" value="9">
+      <label for="9class">9 classes</label>
+  	</form>
+  </div>
+</div>
+
+<div id="zipForm" class="upload-form" style="display: none;">
+  <div>
+  	<form id="upload_zip_long" action="/{{name_user}}/upload_videos" method="post">
+  		<input type="text" name="link_zip" class="dropbox-input" placeholder="Enter Path to Zipfile" required>
+  		<button>Upload</button>
+      <input name="name_user" style="display:none" value={{ name_user }}>
+      <br>
+      <input name="directory_name" type="text" placeholder="Project name" required>
+      <br>
+      <input type="radio" name="class" value="5">
+      <label for="5class">5 classes</label><br>
+      <input type="radio" name="class" value="9">
+      <label for="9class">9 classes</label>
+  	</form>
+  </div>
+</div>
+
+
+<script>
+  function showUploadForm(option) {
+    const optionText = document.getElementById("optionText");
+    optionText.textContent = option === "googleDrive" ? "Upload by Google Drive" :
+                             option === "transfer" ? "Upload by dbtransfer" :
+                             option === "dropbox" ? "Upload by Dropbox" :
+                             option === "zipForm" ? "Process by Zipfile" :
+                             "Select an option";
+
+    const googleDriveForm = document.getElementById("googleDriveForm");
+    const transferForm = document.getElementById("transferForm");
+    const dropboxForm = document.getElementById("dropboxForm");
+    const zipForm = document.getElementById("zipForm");
+
+    googleDriveForm.style.display = "none";
+    transferForm.style.display = "none";
+    dropboxForm.style.display = "none";
+    zipForm.style.display = "none";
+
+    if (option === "googleDrive") {
+      googleDriveForm.style.display = "block";
+    } else if (option === "transfer") {
+      transferForm.style.display = "block";
+    } else if (option === "dropbox") {
+      dropboxForm.style.display = "block";
+    } else if (option === "zipForm") {
+      zipForm.style.display = "block";
+    }
+  }
+</script>
+
+</body>
+</html>

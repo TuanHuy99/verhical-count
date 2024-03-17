@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Đăng ký</title>
+    </head>
+    <body>
+        <h1>Đăng ký</h1>
+        {% if errors %}
+        <ul>
+            {% for error in errors %}
+            <li style="color: red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form method="post" action="/register">
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" name="password"><br>
+            <label for="confirm_password">Xác nhận mật khẩu:</label>
+            <input type="password" id="confirm_password" name="confirm_password"><br>
+            <input type="submit" value="Đăng ký">
+        </form>
+        <p><a href="/login">Đăng nhập</a></p>
+    </body>
+</html>

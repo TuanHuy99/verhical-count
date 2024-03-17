@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank you!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_thanks.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thank you for using our website! <br><h2>Results of <h1 style="color: blue">{{ file_name }}</h1> will be returned to your email. Please check your email in a few minutes</h2></h1>
+        </header>
+        <div class="content">
+            <p><br>
+We appreciate your interest in our product and services. <br>
+Please feel free to connect with us using the button if you have problems during use:</p>
+            <button id="connect-btn">Connect Us</button>
+        </div>
+        <footer>
+            <a href="/user/{{name_user}}"><button id="back-btn">Back</button></a>
+        </footer>
+    </div>
+    <script>
+        const connectBtn = document.getElementById('connect-btn');
+        const backBtn = document.getElementById('back-btn');
+    </script>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='/css/index.css') }}">-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index_.css') }}">
+<style>
+.table-striped>tbody>tr:nth-of-type(odd){
+	background-color: rgb(125, 125, 125);
+}
+</style>
+<header>
+  <div style="height: 200px; background-color: black">
+    <h1 style="margin: auto auto; color: White; padding-top:50px; padding-left:30px">
+        <form action="/user/{{name_user}}" method="get">
+<!--            <input id="name_user" style="display:none" value={{name_user}} >-->
+            <input type="submit" value="BACK TO HOME" style="border: 3px solid lightgray; border-radius: 20px; color: white; background-color: gray; padding:12px;">
+        </form>
+    </h1>
+
+</div>
+    <div class="lightbox">
+        <div></div>
+        <img id="loadinggif" style="position: fixed; left: 49%; top: 45vh; z-index: 120; width:2.5%; display:none" src="{{ url_for('static', filename='/loading_gif/loading_nob.gif') }}" alt="Loading"/>
+    </div>
+</header>
+<body style="background-color: rgb(125, 125, 125);">
+
+<img class="cangiua" id="myImage" width={{ size_w }} height={{ size_h }} src="{{ url_for('static', filename='/users/') }}/{{name_user}}/{{dir_video}}/line_road_{{num_class}}.jpg" style="position: relative; width:{{ size_w }}; height:{{ size_h }}; border:1px solid green;top: 100px;left: 0px;z-index:-1;">
+  <!-- <source src="mov_bbb.ogg" type="video/ogg">
+  Your browser does not support HTML5 video. -->
+</img>
+
+
+<div style="margin: auto 0">
+
+        <div style='position: absolute; margin:0px; width:{{ size_w }}; height:{{ size_h }}; border:1px solid black;top: 300px'>
+          <canvas id="myCanvas" width={{ size_w }} height={{ size_h }} style="cursor:crosshair"></canvas>
+        </div>
+
+    </div>
+<button onclick="on_click_clear()" type="button" class="btn_clear_line" >Clear Lines</button><br>
+<!--<form action="/toado_hour/{{name_user}}/{{file_path}}" method="get" id="form_predict">-->
+<form action="" method="post" id="form_predict">
+
+    <input id = "name_vi" class="name_video_draw background_cl" name="name_vi" readonly value = {{ file_path }}>
+    <input id="logX" class="an_obj" name="x" value="x_0">
+    <input id="logY" class="an_obj" name="y" value="y_0">
+    <input id="logX1" class="an_obj" name="x1" value="x_1">
+    <input id="logY1" class="an_obj" name="y1" value="y_1">
+    <input id="logX2" class="an_obj" name="x2" value="x_2">
+    <input id="logY2" class="an_obj" name="y2" value="y_2">
+    <input id="logX3" class="an_obj" name="x3" value="x_3">
+    <input id="logY3" class="an_obj" name="y3" value="y_3">
+    <input id="logX4" class="an_obj" name="x4" value="x_4">
+    <input id="logY4" class="an_obj" name="y4" value="y_4">
+    <input id="logX5" class="an_obj" name="x5" value="x_5">
+    <input id="logY5" class="an_obj" name="y5" value="y_5">
+    <input id="logX6" class="an_obj" name="x6" value="x_6">
+    <input id="logY6" class="an_obj" name="y6" value="y_6">
+    <input id="logX7" class="an_obj" name="x7" value="x_7">
+    <input id="logY7" class="an_obj" name="y7" value="y_7">
+    <!--        x_start, y_start, x_end, y_end-->
+    <input id="logX8" class="an_obj" name="x8" value="x_8">
+    <input id="logY8" class="an_obj" name="y8" value="y_8">
+    <input id="logX9" class="an_obj" name="x9" value="x_9">
+    <input id="logY9" class="an_obj" name="y9" value="y_9">
+    <div class="time_sub" style="position:relative; top:170px;left:30px; font-size:15px">
+        <label for="time1">Time start of video:</label>
+	<input type="time" id="time1" name="time1" step="1" value={{ time1 }}>
+        <br>
+
+        <label for="time2">Time end of video  :</label>
+	<input type="time" id="time2" name="time2" step="1" value={{ time2 }}>
+        <br>
+
+        <label for="start">Start:</label>
+	<input type="time" id="start" name="start" value={{ start }}>
+        <br>
+
+        <label for="end">End  :</label>
+	<input type="time" id="end" name="end" value={{ end }}>
+        <br>
+        <label for="numM">Number of minutes  :</label>
+	<input type="number" id="numM" name="numM" value={{ numM }}>
+        <br>
+    </div>
+
+    <input type="submit" class="btn_predict" onclick="" value="Submit" >
+
+</form>
+<script>
+    $( "#form_predict" ).submit(function( event ) {
+    var time1 = document.getElementById("time1").value;
+  var time2 = document.getElementById("time2").value;
+  var start = document.getElementById("start").value;
+  var end = document.getElementById("end").value;
+  var numM = document.getElementById("numM").value;
+  if ( $( "#logX" ).first().val() === "x_0" || $( "#logX1" ).first().val() === 'x_1' ||
+    $( "#logY" ).first().val() === 'y_0' || $( "#logY1" ).first().val() === 'y_1' ||
+    $( "#logX2" ).first().val() === 'x_2' || $( "#logX3" ).first().val() === 'x_3' ||
+    $( "#logY2" ).first().val() === 'y_2' || $( "#logY3" ).first().val() === 'y_3'||
+    $( "#logX4" ).first().val() === 'x_4' || $( "#logX5" ).first().val() === 'x_5' ||
+    $( "#logY4" ).first().val() === 'y_4' || $( "#logY5" ).first().val() === 'y_5' ||
+    $( "#logX6" ).first().val() === 'x_6' || $( "#logX7" ).first().val() === 'x_7' ||
+    $( "#logY6" ).first().val() === 'y_6' || $( "#logY7" ).first().val() === 'y_7' ||
+    $( "#logX8" ).first().val() === "x_8" || $( "#logX9" ).first().val() === 'x_9' ||
+    $( "#logY8" ).first().val() === 'y_8' || $( "#logY9" ).first().val() === 'y_9' ) {
+    alert("Bạn kẻ thiếu Line/chưa xác định hướng A to B.\nVui lòng vẽ đủ 4 line. và xác định hướng.");
+    return false;
+  } else if (time1 === "" || time2 === "" || start === "" || end === "" || numM === "") {
+        alert("Vui lòng điền đầy đủ thông tin thời gian!");
+    return false;
+  } else {
+    load_gif();
+    return true;
+  }
+});
+</script>
+<script>
+    function load_gif (){
+        var lightbox=document.querySelectorAll(".lightbox")[0];
+        lightbox.style.display = 'none';
+    }
+</script>
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.font = "30px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.moveTo({{x0}},{{y0}});
+    ctx.lineTo({{x1}},{{y1}});
+    ctx.lineWidth = 4;
+    ctx.moveTo({{x2}},{{y2}});
+    ctx.lineTo({{x3}},{{y3}});
+    ctx.lineWidth = 4;
+    ctx.moveTo({{x4}},{{y4}});
+    ctx.lineTo({{x5}},{{y5}});
+    ctx.lineWidth = 4;
+    ctx.moveTo({{x6}},{{y6}});
+    ctx.lineTo({{x7}},{{y7}});
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'blue';
+    ctx.stroke();
+    ctx.fillText("Line0", {{x1}}, {{y1}});
+    ctx.fillText("Line1", {{x3}}, {{y3}});
+    ctx.fillText("Line2", {{x5}}, {{y5}});
+    ctx.fillText("Line3", {{x7}}, {{y7}});
+    ctx.fillText("A", {{x8}}, {{y8}});
+    ctx.fillText("B", {{x9}}, {{y9}});
+    </script>
+
+    <script type="text/javascript">
+        var canvas = document.getElementById('myCanvas');
+        canvas.addEventListener('click', on_canvas_click, false);
+        let i=1;
+    <!--	var x0=x1=x2=x3=0,y0=y1=y2=y3=0;-->
+
+        var context=canvas.getContext('2d');
+
+        context.fillStyle='red';
+        context.fillRect(0,0,10,1);
+        context.fillRect(0,0,1,10);
+
+        function getNumericStyleProperty(style, prop) {
+          return parseInt(style.getPropertyValue(prop),10);
+        }
+
+        function on_canvas_click(ev) {
+          var boundingRect = ev.target.getBoundingClientRect();
+          var x = ev.clientX - boundingRect.left,
+              y = ev.clientY - boundingRect.top;
+
+              if (i==1) {
+                x0=x;
+                y0=y;
+                document.getElementById("logX").value = x
+                document.getElementById("logY").value = y
+                i=i+1;
+              } else if (i==2) {
+                x1=x;
+                y1=y;
+                document.getElementById("logX1").value = x
+                document.getElementById("logY1").value = y
+    <!--	   	  	$("#logX1").text("x1="+x);-->
+    <!--		  	$("#logY1").text("y1="+y);-->
+                i=i+1;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.moveTo(x0,y0);
+                ctx.lineTo(x1,y1);
+                ctx.lineWidth = 4;
+
+
+          // set line color
+                ctx.strokeStyle = 'blue';
+                ctx.stroke();
+                ctx.font = "30px Comic Sans MS";
+                ctx.fillStyle = "red";
+                ctx.fillText("Line0", x1, y1);
+
+              } else if (i==3) {
+                x2=x;
+                y2=y;
+                document.getElementById("logX2").value = x
+                document.getElementById("logY2").value = y
+    <!--	   	  	$("#logX1").text("x2="+x);-->
+    <!--		  	$("#logY1").text("y2="+y);-->
+                i=i+1;
+              } else if (i==4) {
+                x3=x;
+                y3=y;
+                document.getElementById("logX3").value = x
+                document.getElementById("logY3").value = y
+    <!--	   	  	$("#logX1").text("x3="+x);-->
+    <!--		  	$("#logY1").text("y3="+y);-->
+                i=i+1;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.moveTo(x2,y2);
+                ctx.lineTo(x3,y3);
+                ctx.lineWidth = 4;
+
+
+          // set line color
+                ctx.strokeStyle = 'blue';
+                ctx.stroke();
+                ctx.font = "30px Comic Sans MS";
+                ctx.fillStyle = "red";
+                ctx.fillText("Line1", x3, y3);
+
+              } else if (i==5) {
+                x4=x;
+                y4=y;
+                document.getElementById("logX4").value = x
+                document.getElementById("logY4").value = y
+    <!--	   	  	$("#logX1").text("x2="+x);-->
+    <!--		  	$("#logY1").text("y2="+y);-->
+                i=i+1;
+              } else if (i==6) {
+                x5=x;
+                y5=y;
+                document.getElementById("logX5").value = x
+                document.getElementById("logY5").value = y
+    <!--	   	  	$("#logX1").text("x3="+x);-->
+    <!--		  	$("#logY1").text("y3="+y);-->
+                i=i+1;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.moveTo(x4,y4);
+                ctx.lineTo(x5,y5);
+                ctx.lineWidth = 4;
+
+
+          // set line color
+                ctx.strokeStyle = 'blue';
+                ctx.stroke();
+                ctx.font = "30px Comic Sans MS";
+                ctx.fillStyle = "red";
+                ctx.fillText("Line2", x5, y5);
+
+              } else if (i==7) {
+                x6=x;
+                y6=y;
+                document.getElementById("logX6").value = x
+                document.getElementById("logY6").value = y
+    <!--	   	  	$("#logX1").text("x2="+x);-->
+    <!--		  	$("#logY1").text("y2="+y);-->
+                i=i+1;
+              } else if (i==8) {
+                x7=x;
+                y7=y;
+                document.getElementById("logX7").value = x
+                document.getElementById("logY7").value = y
+    <!--	   	  	$("#logX1").text("x3="+x);-->
+    <!--		  	$("#logY1").text("y3="+y);-->
+                i=i+1;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.moveTo(x6,y6);
+                ctx.lineTo(x7,y7);
+                ctx.lineWidth = 4;
+
+
+          // set line color
+                ctx.strokeStyle = 'blue';
+                ctx.stroke();
+                ctx.font = "30px Comic Sans MS";
+                ctx.fillStyle = "red";
+                ctx.fillText("Line3", x7, y7);
+
+              } else if (i==9) {
+                x8=x;
+                y8=y;
+                document.getElementById("logX8").value = x
+                document.getElementById("logY8").value = y
+    <!--	   	  	$("#logX1").text("x2="+x);-->
+    <!--		  	$("#logY1").text("y2="+y);-->
+                i=i+1;
+              } else if (i==10) {
+                x9=x;
+                y9=y;
+                document.getElementById("logX9").value = x
+                document.getElementById("logY9").value = y
+    <!--	   	  	$("#logX1").text("x3="+x);-->
+    <!--		  	$("#logY1").text("y3="+y);-->
+                i=i+1;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.moveTo(x8,y8);
+                ctx.lineTo(x9,y9);
+                ctx.lineWidth = 4;
+
+
+          // set line color
+                ctx.strokeStyle = 'green';
+                ctx.stroke();
+                ctx.font = "30px Comic Sans MS";
+                ctx.fillStyle = "green";
+                ctx.fillText("A", x8, y8);
+                ctx.fillText("B", x9, y9);
+                ctx.fillText("A to B", (Math.abs(x8-x9)%2) , (Math.abs(y8-y9)%2));
+                ctx.strokeStyle = 'blue';
+
+
+              } else {
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.restore();
+                i=1;
+                x0=x1=x2=x3=x4=x5=x6=x7=x8=x9=0;y0=y1=y2=y3=y4=y5=y6=y7=y8=y9=0;
+              }
+        }
+        function on_click_clear(){
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.restore();
+            i=1;
+            x0=x1=x2=x3=x4=x5=x6=x7=x8=x9=0;y0=y1=y2=y3=y4=y5=y6=y7=y8=y9=0;
+        }
+    </script>
+<div class="icon_veco">
+    <div style="display: flex; position: absolute; left: 40vw">
+      <img style="width: 4vw; position: relative; top: -10px" src="{{ url_for('static', filename='/image_upload/car.png') }}">
+      <h3 style="color: white; font-weight: bold; position: relative; top:-60px; left: -2.8vw">Car</h3>
+    </div>
+    <div style="display: flex; position: absolute; left: 45vw">
+      <img style="width: 4vw; position: relative; top: -10px" src="{{ url_for('static', filename='/image_upload/moto.png') }}">
+      <h3 style="color: white; font-weight: bold; position: relative; top:-60px; left: -3.2vw">Motor</h3>
+    </div>
+    <div style="display: flex; position: absolute; left: 50vw">
+      <img style="width: 4vw; position: relative; top: -10px" src="{{ url_for('static', filename='/image_upload/lgv.png') }}">
+      <h3 style="color: white; font-weight: bold; position: relative; top:-60px; left: -3vw">LGV</h3>
+    </div>
+    <div style="display: flex; position: absolute; left: 55vw">
+      <img style="width: 4vw; position: relative; top: -10px" src="{{ url_for('static', filename='/image_upload/hgv.png') }}">
+      <h3 style="color: white; font-weight: bold; position: relative; top:-60px; left: -3vw">HGV</h3>
+    </div>
+    <div style="display: flex; position: absolute; left: 60vw">
+      <img style="width: 4vw; position: relative; top: -10px" src="{{ url_for('static', filename='/image_upload/bus.png') }}">
+      <h3 style="color: white; font-weight: bold; position: relative; top:-60px; left: -3vw">Bus</h3>
+    </div>
+  </div>
+  <br><br><br><br><br>
+<br><br><br><br><br>
+<div class="container table_re" style="background-color: rgb(75, 75, 75);">
+  <h2>Summary table of generated model data:</h2>
+  <p><br></p>
+    {% block table %}
+    <table class="table table-striped table-sm" >
+      <tr>
+        <th></th>
+        <th>Car</th>
+        <th>LGV</th>
+        <th>HGV</th>
+        <th>Motor</th>
+        <th>BUS</th>
+	<th>TOTAL</th>
+      </tr>
+
+      {% for index,row in data %}
+      <tr>
+        <td>{{ list_time[index] }}</td>
+        <td>{{ row[1]}}</td>
+        <td>{{ row[3]}}</td>
+        <td>{{ row[4]}}</td>
+        <td>{{ row[0]}}</td>
+        <td>{{ row[2]}}</td>
+	<td>{{ row[0] + row[1] + row[2] + row[3] + row[4] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endblock %}
+
+</div>
+<br><br><br><br><br>
+</body>
+<form action="/{{name_user}}/{{dir_video}}/download-excel_4_5" method="get" class="btn_down_csv">
+    <br><p style="color:white">Download xlsx: </p>
+    <input type="submit" class="btn_down" value="Download file .xlsx" ><br><br><br>
+</form>

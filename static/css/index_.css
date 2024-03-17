@@ -1,0 +1,89 @@
+body{
+	background-color: rgb(125, 125, 125);
+}
+.btn_clear_line{
+    position:relative;
+    top: 150px;
+    width:250px;
+    height:70px;
+    border: 1px solid green;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:2.6vh;
+}
+
+.btn_choose_lines{
+    position:relative;
+    top: 0px;
+    width:220px;
+    height:50px;
+    border: 1px solid darkblue;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:18px;
+}
+
+.btn_predict{
+    position:relative;
+    top:-63px;
+    left:300px;
+    width:200px;
+    height: 70px;
+    border: 1px solid green;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:2.6vh;
+    margin-left:0px;
+}
+.an_obj{
+    padding: 0;
+    border: 0;
+	display: none;
+}
+.name_video_draw{
+	background-color: rgb(125, 125, 125);
+    text-align: left;
+    justify-content: left;
+    position: absolute;
+    top:220px;
+    left: 2vw;
+    padding: 0;
+    border: 0;
+    width: 80%;
+    color: white;
+    font-size: 4vh;
+    z-index:9000;
+}
+.table_re{
+	color: white;
+	width: 70vw;
+	font-size: 1.5vw;
+}
+tr{
+	color: white;
+	font-size: 1.5vw;
+}
+.table-striped>tbody>tr:nth-of-type(odd){
+	background-color: rgb(125, 125, 125);
+}
+
+.btn_download{
+    position:relative;
+    top:80px;
+    left:300px;
+    width:200px;
+    height: 70px;
+    border: 1px solid green;
+    border-radius: 50px;
+    color: black;
+    background-color: rgb(217, 217, 217);
+    font-weight: bold;
+    font-size:2.6vh;
+    margin-left:0px;
+}
